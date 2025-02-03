@@ -1,17 +1,19 @@
-# Next.js Project
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-Before running the development server, you need to install the dependencies. Run the following command to install them:
+
+Before running the development server, you need to install the dependencies. Run the following command to install them(in the project Directory):
+
 
 ```bash
 npm install
-# or
-yarn
-# or
-pnpm install
+```
+
+Then run the project using following Command in the Project Directory:
+```bash
+npm run dev
+```
 
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
