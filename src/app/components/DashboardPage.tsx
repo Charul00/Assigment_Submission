@@ -1,27 +1,31 @@
-'use client';
+"use client"
 
-import Sidebar from './Sidebar';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import type React from "react"
+import Sidebar from "./Sidebar"
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, BarChart, Bar } from "recharts"
+import { useTheme } from "./contexts/theme-context"
 
 const transactionData = [
-  { month: 'Jan', value: 400 },
-  { month: 'Feb', value: 500 },
-  { month: 'Mar', value: 450 },
-  { month: 'Apr', value: 300 },
-  { month: 'May', value: 600 },
-  { month: 'Jun', value: 500 },
-];
+  { month: "Jan", value: 400 },
+  { month: "Feb", value: 500 },
+  { month: "Mar", value: 450 },
+  { month: "Apr", value: 300 },
+  { month: "May", value: 600 },
+  { month: "Jun", value: 500 },
+]
 
 const conversionData = [
-  { currency: 'USD', rate: 80 },
-  { currency: 'EUR', rate: 80 },
-  { currency: 'GBP', rate: 80 },
-  { currency: 'JPY', rate: 75 },
-];
+  { currency: "USD", rate: 80 },
+  { currency: "EUR", rate: 80 },
+  { currency: "GBP", rate: 80 },
+  { currency: "JPY", rate: 75 },
+]
 
 const DashboardPage = () => {
+  const { theme } = useTheme()
+
   return (
-    <div className="flex min-h-screen bg-gray-950 text-white">
+    <div className={`flex min-h-screen ${theme === "dark" ? "bg-gray-950 text-white" : "bg-gray-100 text-gray-900"}`}>
       <Sidebar />
 
       <div className="flex-1 p-8">
@@ -38,8 +42,8 @@ const DashboardPage = () => {
           <ChartCard title="Transaction Volume Over Time">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={transactionData}>
-                <XAxis dataKey="month" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
+                <XAxis dataKey="month" stroke={theme === "dark" ? "#9CA3AF" : "#4B5563"} />
+                <YAxis stroke={theme === "dark" ? "#9CA3AF" : "#4B5563"} />
                 <Line type="monotone" dataKey="value" stroke="#60A5FA" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
@@ -48,30 +52,38 @@ const DashboardPage = () => {
           <ChartCard title="Conversion Rates">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={conversionData}>
-                <XAxis dataKey="currency" stroke="#9CA3AF" />
-                <YAxis stroke="#9CA3AF" />
-                <Bar dataKey="rate" fill="#374151" />
+                <XAxis dataKey="currency" stroke={theme === "dark" ? "#9CA3AF" : "#4B5563"} />
+                <YAxis stroke={theme === "dark" ? "#9CA3AF" : "#4B5563"} />
+                <Bar dataKey="rate" fill={theme === "dark" ? "#374151" : "#D1D5DB"} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const StatCard = ({ title, value }: { title: string; value: string }) => (
-  <div className="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition-colors cursor-pointer">
-    <h3 className="text-gray-400 mb-2">{title}</h3>
-    <p className="text-2xl font-bold">{value}</p>
-  </div>
-);
+const StatCard = ({ title, value }: { title: string; value: string }) => {
+  const { theme } = useTheme()
+  return (
+    <div
+      className={`${theme === "dark" ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-50"} p-6 rounded-lg transition-colors cursor-pointer`}
+    >
+      <h3 className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} mb-2`}>{title}</h3>
+      <p className="text-2xl font-bold">{value}</p>
+    </div>
+  )
+}
 
-const ChartCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-gray-800 p-6 rounded-lg">
-    <h3 className="text-gray-400 mb-4">{title}</h3>
-    <div className="h-64">{children}</div>
-  </div>
-);
+const ChartCard = ({ title, children }: { title: string; children: React.ReactNode }) => {
+  const { theme } = useTheme()
+  return (
+    <div className={`${theme === "dark" ? "bg-gray-800" : "bg-white"} p-6 rounded-lg`}>
+      <h3 className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"} mb-4`}>{title}</h3>
+      <div className="h-64">{children}</div>
+    </div>
+  )
+}
 
-export default DashboardPage;
+export default DashboardPage
